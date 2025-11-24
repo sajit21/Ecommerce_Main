@@ -131,8 +131,8 @@ export const refreshToken= async(req, res) =>{
         }
 
         //incase of yes token
-        const decoded=jwt.verify(refreshToken,process.env.REFRESH_TOKEN_SECRET)
-        const storeRefreshToken= await redis.get(`refresh_token:${decoded.userId}`)
+        const decoded=jwt.verify(refreshToken,process.env.REFRESH_TOKEN_SECRET) //check the token signature from browser with secret key placed at env.
+        const storeRefreshToken= await redis.get(`refresh_token:${decoded.userId}`) //is the refresh token saved in the redis is same as the token in the browser?
 
         //store bhako refresh token sanga match huncha ki nai
         if(storeRefreshToken !== refreshToken)
